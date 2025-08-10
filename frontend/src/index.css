@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Gelasio:ital,wght@0,400..700;1,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+@import "tailwindcss";
+
+
+/* @plugin "daisyui"; */
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
+
+@plugin "@tailwindcss/typography";
+
+
+
+@theme {
+      --font-gelasio: "Gelasio", "sans-serif";
+      --breakpoint-3xl: 120rem;
+
+      --color-white: #FFFFFF;
+      --color-black: #242424;
+      --color-grey: #F3F3F3;
+      --color-dark-grey: #6B6B6B;
+      --color-red: #FF4E4E;
+      --color-transparent: transparent;
+      --color-twitter: #1DA1F2;
+      --color-purple: #8B46FF;
+    }
+
+    @layer components {
+
+    html{
+      @apply overflow-x-hidden;
+    }
+
+    body {
+      @apply  w-screen font-gelasio font-normal bg-[#1e1e1e] text-white;
+    }
+    .animatedButton{
+      animation-duration: 10000ms;
+    }
+
+    .textcol{
+      @apply text-[#5eeccc] hover:text-[#1be4b5]
+    }  
+
+    .editor-btn {
+      @apply flex items-center justify-center w-10 rounded-lg text-slate-700 aspect-square;
+    }
+
+    .active-editor-btn {
+      @apply text-slate-800 bg-slate-200;
+    }
+
+    .prose h1,
+    .prose h2,
+    .prose h3,
+    .prose h4,
+    .prose h5,
+    .prose h6 {
+      color: white !important;
+    }
+
+    .prose-invert h1,
+    .prose-invert h2,
+    .prose-invert h3,
+    .prose-invert h4,
+    .prose-invert h5,
+    .prose-invert h6 {
+      color: white !important;
+    }
+
+
+}
+
