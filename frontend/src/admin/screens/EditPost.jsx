@@ -35,6 +35,7 @@ const EditPost  = () => {
    const [tags, setTags] = useState(null);
    const [postSlug, setPostSlug] = useState(slug);
    const [caption, setCaption] = useState("");
+   const [isPublished, setIsPublished] = useState("");
 
 
 
@@ -100,7 +101,7 @@ const EditPost  = () => {
   
       updatedData.append(
         "document",
-        JSON.stringify({ body, categories, title, tags, slug: postSlug, caption })
+        JSON.stringify({ body, categories, title, tags, isPublished, slug: postSlug, caption })
       );
   
   
@@ -176,7 +177,7 @@ const EditPost  = () => {
                     </div>
 
                     {/* TITLE */}
-                    <div className="w-full mb-2 space-x-4">
+                    {/* <div className="w-full mb-2 space-x-4">
                         <label className="" htmlFor="title">
                           <span className="text-lg">Article Title</span>
                         </label>
@@ -188,7 +189,39 @@ const EditPost  = () => {
                             onChange={(e) => setTitle(e.target.value)}
                             placeholder="Enter Title"
                         />
+                    </div> */}
+
+                    {/* TITLE + PUBLISH CHECKBOX */}
+                    <div className="flex items-end w-full gap-4 mb-2">
+                      {/* Title Input (takes remaining space) */}
+                      <div className="flex-1">
+                        <label htmlFor="title" className="block mb-1 text-lg">
+                          Article Title
+                        </label>
+                        <input
+                          id="title"
+                          value={title}
+                          className="w-full p-2 text-xl font-medium border border-gray-700 rounded outline-slate-300"
+                          onChange={(e) => setTitle(e.target.value)}
+                          placeholder="Enter Title"
+                        />
+                      </div>
+
+                      {/* Simple Checkbox */}
+                      <div className="flex items-center gap-2 mb-1">
+                        <input
+                          type="checkbox"
+                          id="publish"
+                          checked={isPublished}
+                          onChange={() => setIsPublished(!isPublished)}
+                          className="w-5 h-5"
+                        />
+                        <label htmlFor="publish" className="text-gray-200">
+                          Publish
+                        </label>
+                      </div>
                     </div>
+
 
                     {/* CAPTION */}
                     <div className="w-full space-x-4">

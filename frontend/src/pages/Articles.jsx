@@ -10,7 +10,7 @@ import ArticleCard from '../components/ArticleCard';
 
 const Articles = () => {
   const { data, isLoading, isError } = useQuery({
-    queryFn: () => getAllPosts("", 1, 6),
+    queryFn: () => getAllPosts("", 1, 4),
     queryKey: ["posts"],
     onError: (error) => {
       toast.error(error.message);
@@ -42,7 +42,7 @@ const Articles = () => {
       </div>
 
       <Link  
-        to="#" 
+        to="/blog" 
         className='flex items-center px-6 py-3 mx-auto font-bold bg-gray-800 rounded-lg gap-x-2'
         >
         <span className='textcol'>LoadMore</span>

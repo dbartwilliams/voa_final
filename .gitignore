@@ -11,7 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
-server_production.js
+server_prod.js
 vps_setup_notes
 env.production
 

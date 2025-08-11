@@ -4,6 +4,7 @@ import { images } from "../constants";
 import Search from "../components/Search";
 
 const Hero = () => {
+  
   return (
     <section className="container flex flex-col px-5 py-5 mx-auto lg:flex-row">
       <div className="mt-10 lg:w-1/2">
@@ -11,7 +12,7 @@ const Hero = () => {
         African Voices of A New Generation
         </h1>
         <p className="mt-4 text-center text-dark-light md:text-xl lg:text-base xl:text-xl lg:text-left">
-        Africa is a crime scene, bleeding from the wounds of colonization & genocides. The land needs time to heal, but not in the present of the colonizers." The wounds of our ancestors demand justice, not silence.
+        Africa is a crime scene, bleeding from the wounds of colonization, endless genocides and imperialism. The land needs time to heal, but NOT in the present of the colonizers." The wounds of our ancestors demand justice, not silence.
         </p>
         <Search className="mt-10 lg:mt-6 xl:mt-10" />
         <div className="flex flex-col pb-1 mt-4 border-b border-gray-700 lg:flex-row lg:items-start lg:flex-nowrap lg:gap-x-4 lg:mt-7">
@@ -19,14 +20,14 @@ const Hero = () => {
             Popular Tags:
           </span>
           <ul className="flex flex-wrap gap-x-2.5 gap-y-2.5 mt-3 lg:text-sm xl:text-base">
-            <li className="rounded px-3 py-1.5 hover:bg-gray-800 cursor-pointer">
-              Design
+            <li className="rounded px-3 py-1.5 hover:bg-gray-800 cursor-pointer uppercase">
+              General
             </li>
-            <li className="rounded px-3 py-1.5 hover:bg-gray-800 cursor-pointer">
-              User Experience
+            <li className="rounded px-3 py-1.5 hover:bg-gray-800 cursor-pointer uppercase">
+              Africa
             </li>
-            <li className="rounded px-3 py-1.5 hover:bg-gray-800 cursor-pointer">
-              User Interfaces
+            <li className="rounded px-3 py-1.5 hover:bg-gray-800 cursor-pointer uppercase">
+              The West
             </li>
           </ul>
         </div>

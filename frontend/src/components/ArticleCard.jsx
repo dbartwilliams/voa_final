@@ -6,7 +6,7 @@ import { formatDistanceToNow } from 'date-fns';
 
 const ArticleCard = ({ post, className }) => {
   return (
-    <div className="flex flex-col w-full overflow-hidden transition-shadow duration-300 rounded-r md:flex-row hover:shadow-xl">
+    <div className={`flex flex-col w-full overflow-hidden transition-shadow duration-300 rounded-lg md:flex-row hover:shadow-xl ${className}`}>
   
   {/* Image container */}
   <div className="relative h-48 overflow-hidden md:h-64 md:w-1/3">
@@ -34,12 +34,9 @@ const ArticleCard = ({ post, className }) => {
          <h2 className="text-xl font-bold text-[#5eeccc]  hover:text-[#1be4b5] md:text-2xl line-clamp-2">
            {post.title}
          </h2>
-        {/* <p className="mt-2 text-gray-200 text-[18px] line-clamp-2 md:line-clamp-3">
-          {post.caption}
-       </p> */}
       </Link>
 
-      <p className="py-2 text-[22px]">
+      <p className="py-2 text-[22px] text-gray-300">
         {post.caption.length > 180 ? post.caption.slice(0, 250) + "....." : post.caption}
       </p>
   

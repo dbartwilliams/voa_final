@@ -73,7 +73,7 @@ const ArticleDetailPage = () => {
                         {data?.categories.map((category) => (
                             <Link
                             to={`/blog?category=${category.name}`}
-                            className="inline-block text-sm text-primary font-roboto md:text-base"
+                            className="inline-block text-sm text-blue-400 md:text-base"
                             >
                             {category.name}
                             </Link>
@@ -85,12 +85,6 @@ const ArticleDetailPage = () => {
                     </h1>
 
                     {/*ARTICLE CONTENT  */}
-                    {/* <div className="w-full prose !text-white bg-transparent prose-invert text-lg max-w-none">
-                          {!isLoading && !isError && (
-                            <div dangerouslySetInnerHTML={{ __html: data?.body }} />
-                          )}
-                      </div> */}
-
                     <div className="w-full mt-5 text-white bg-transparent max-w-none">
                       {!isLoading && !isError && (
                         <div

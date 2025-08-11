@@ -193,10 +193,11 @@ const getAllPosts = async (req, res, next) => {
 
       let where = {};
 
-    // If no user or user is not admin, restrict to published posts only
-    // if (!req.user || !req.user.admin) {
-    //   where.isPublished = true;
-    // }
+      // Non-admins (or guests) can only see published posts
+        // if (!req.user || !req.user.admin) {
+        //   where.isPublished = true;
+        // }
+
 
     if (filter) {
       where.title = { $regex: filter, $options: "i" };

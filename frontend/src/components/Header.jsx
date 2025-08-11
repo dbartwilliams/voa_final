@@ -5,6 +5,7 @@ import { FaHome } from "react-icons/fa";
 import { MdOutlineMailLock } from "react-icons/md";
 import { CgLogIn, CgLogOut } from "react-icons/cg";
 import { SiGnuprivacyguard } from "react-icons/si";
+import { FaBlog } from "react-icons/fa";
 import { CiUser } from "react-icons/ci";
 import { useSelector, useDispatch } from "react-redux";
 import { MdDashboard } from "react-icons/md";
@@ -24,8 +25,9 @@ const Header = () => {
   
   const navItemsInfo = [
     { name: 'Home', type: "link", href: "/", icon: FaHome },
+    { name: 'Blog', type: "link", href: "/blog", icon: FaBlog },
     { name: 'Contact', type: "link", href: "/contact", icon: MdOutlineMailLock },
-    // { name: 'Dash', type: "link", href: "/dashboard", icon: MdDashboard },
+
 
   // Dashboard - only shown to admin users
   ...(userState?.userInfo?.admin ? [

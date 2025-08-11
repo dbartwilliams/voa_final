@@ -15,6 +15,7 @@ import userRoutes from "./routes/userRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
 import commentRoutes from "./routes/commentRoutes.js";
 import postCategoriesRoutes from "./routes/postCategoriesRoutes.js";
+import contactUsRoutes from "./routes/contactUsRoutes.js";
   
 
 dotenv.config();
@@ -38,6 +39,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/post-categories", postCategoriesRoutes);
+app.use("/api/contact", contactUsRoutes);
 
 // Get current module's directory name
 const __filename = fileURLToPath(import.meta.url);
