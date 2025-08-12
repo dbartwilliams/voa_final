@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 // import axios from 'axios';
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { HelmetProvider } from "react-helmet-async";
 
 import App from './App.jsx'
 
@@ -19,12 +20,14 @@ const queryClient = new QueryClient({
   },
 });
 
-createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
-  <Provider store={store}>
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>
-  </Provider>
-</BrowserRouter>
+createRoot(document.getElementById("root")).render(
+  <HelmetProvider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
+      </Provider>
+    </BrowserRouter>
+  </HelmetProvider>
 )

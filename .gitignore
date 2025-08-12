@@ -26,4 +26,5 @@ env.production
 *.sln
 *.sw?
 .env
+.env_prod
 **/.env

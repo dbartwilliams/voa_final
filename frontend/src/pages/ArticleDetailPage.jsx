@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import BreadCrumbs from "../components/BreadCrumbs";
 import MainLayout from "../components/MainLayout";
+import MetaTags from "../utils/MetaTags"
 import SocialShareButtons from "../components/SocialShareButtons";
 import CommentsContainer from "../comments/CommentsContainer";
 import { images, stables } from "../constants";
@@ -53,6 +54,19 @@ const ArticleDetailPage = () => {
       ) : isError ? (
         <ErrorMessage message="Couldn't fetch the post detail" />
       ) : (
+
+        <>
+            <MetaTags 
+                title={data?.title}
+                caption={data?.caption?.substring(0, 150)}
+                image={
+                  data?.photo
+                    ? stables.UPLOAD_FOLDER_BASE_URL + data?.photo
+                    : images.samplePostImage
+                }
+                slug={`blog/${data?.slug}`}
+            />
+
             <section className="container flex flex-col max-w-6xl py-5 mx-auto px-9 lg:flex-row lg:gap-x-5 lg:items-start">
                 <article className="flex-1 px-5 pb-2">
                 <BreadCrumbs data={breadCrumbsData} />
@@ -143,6 +157,8 @@ const ArticleDetailPage = () => {
                 </div>
 
             </section>
+        </>
+
              )}
         </MainLayout>
     )

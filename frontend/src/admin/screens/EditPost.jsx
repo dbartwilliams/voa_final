@@ -176,20 +176,6 @@ const EditPost  = () => {
                         ))}
                     </div>
 
-                    {/* TITLE */}
-                    {/* <div className="w-full mb-2 space-x-4">
-                        <label className="" htmlFor="title">
-                          <span className="text-lg">Article Title</span>
-                        </label>
-                        <input
-                            id="title"
-                            value={title}
-                            className="border border-gray-700  !outline-slate-300 text-xl font-medium 
-                            // p-2 rounded w-full"
-                            onChange={(e) => setTitle(e.target.value)}
-                            placeholder="Enter Title"
-                        />
-                    </div> */}
 
                     {/* TITLE + PUBLISH CHECKBOX */}
                     <div className="flex items-end w-full gap-4 mb-2">
