@@ -2,11 +2,11 @@ import express from "express";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
-import connectDB from "./config/db.js";
 import cors from "cors";
-import mongoose from "mongoose";
-import prerender from "prerender-node"; // ✅ SEO support
+import helmet from "helmet";
+import morgan from "morgan";
 
+import connectDB from "./config/db.js";
 import {
   errorResponserHandler,
   invalidPathHandler,
@@ -23,91 +23,55 @@ dotenv.config();
 connectDB();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
-const isProduction = process.env.NODE_ENV === "production";
 
-// Current module path
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// ✅ Enable SEO prerender for bots
-app.use(prerender);
-
-// ✅ CORS setup
-if (!isProduction) {
-  // Dev: allow from multiple URLs if needed
-  const allowedOrigins = process.env.CLIENT_URLS
-    ? process.env.CLIENT_URLS.split(",").map(o => o.trim())
-    : ["http://localhost:5173"];
-
-  app.use(cors({
-    origin: function (origin, callback) {
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  }));
-} else {
-  // Prod: allow only specified URLs
-  app.use(cors({
-    origin: process.env.CLIENT_URLS
-      ? process.env.CLIENT_URLS.split(",").map(o => o.trim())
-      : [],
-    credentials: true,
-  }));
+// --- Middlewares ---
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
 }
 
-// ✅ Body parsers
+app.use(cors({ exposedHeaders: "*" }));
+app.use(helmet()); // security headers
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
-// ✅ Always serve uploads (dev + prod)
-app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
-
-// API routes
+// --- API Routes ---
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/post-categories", postCategoriesRoutes);
 app.use("/api/contact", contactUsRoutes);
 
-// ✅ Serve frontend in production
-if (isProduction) {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+// --- Get __dirname for ES modules ---
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// --- Serve static uploads (images) over HTTPS ---
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+
+// --- Serve frontend in production ---
+if (process.env.NODE_ENV === "production") {
+  const frontendBuildPath = path.join(__dirname, "../client/build");
+  app.use(express.static(frontendBuildPath));
+
+  // Catch-all to serve React routing
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../frontend/dist", "index.html"));
+    res.sendFile(path.join(frontendBuildPath, "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("Server running in development mode...");
   });
 }
 
-// ✅ Health check route
-app.get("/", async (req, res) => {
-  try {
-    const dbState = mongoose.connection.readyState;
-    const states = ["disconnected", "connected", "connecting", "disconnecting"];
-
-    res.json({
-      message: "Voice of Africa API is running 🚀",
-      database: states[dbState] || "unknown",
-    });
-  } catch (error) {
-    res.status(500).json({
-      message: "Server is running, but database check failed",
-      error: error.message,
-    });
-  }
-});
-
-// ✅ Error handlers
+// --- Error handling ---
 app.use(invalidPathHandler);
 app.use(errorResponserHandler);
 
-// Start server
+// --- Start server ---
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(
-    `Server is running on PORT: ${PORT} in ${isProduction ? "production" : "development"} mode`
+    `Server running in ${process.env.NODE_ENV} mode on PORT: ${PORT}`
   );
 });
+

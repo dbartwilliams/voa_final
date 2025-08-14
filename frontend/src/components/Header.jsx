@@ -10,6 +10,9 @@ import { MdDashboard } from "react-icons/md";
 import { CgLogIn, CgLogOut } from "react-icons/cg";
 import { CiUser } from "react-icons/ci";
 
+import { FaReact, FaNodeJs } from "react-icons/fa";
+import { SiExpress, SiMongodb } from "react-icons/si";
+
 
 
 import { images } from "../constants";
@@ -98,6 +101,14 @@ const Header = () => {
         <Link to="/">
         <img className="w-60" src={images.VoaLogo} alt="logo" />
         </Link>
+
+        <div className="flex items-center gap-3">
+            <FaReact className="text-blue-500 w-6 h-6 hover:text-[#61DAFB] cursor-pointer" title="React" />
+            <FaNodeJs className="text-white w-6 h-6 hover:text-[#68A063] cursor-pointer" title="Node.js" />
+            <SiExpress className="text-yellow-500 w-6 h-6 hover:text-[#000000] cursor-pointer" title="Express" />
+            <SiMongodb className="text-green-500 w-6 h-6 hover:text-[#47A248] cursor-pointer" title="MongoDB" />
+       </div>
+
         <div className="z-50 lg:hidden">
           {navIsVisible ? (
             <AiOutlineClose

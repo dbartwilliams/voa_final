@@ -42,10 +42,10 @@ const Footer = () => {
         <div className="col-span-5 md:col-span-4 lg:col-span-2 md:ml-auto">
           <h3 className="md:text-lg text-[#5eeccc] tracking-[.4em]">BUILT WITH</h3>
           <div className="flex mt-5 space-x-4 text-[#959EAD] text-2xl">
-            <FaReact class="text-blue-500"  title="React" className="hover:text-[#61DAFB] cursor-pointer" />
-            <FaNodeJs class="text-white" title="Node.js" className="hover:text-[#68A063] cursor-pointer" />
-            <SiExpress class="text-yellow-500" title="Express" className="hover:text-[#000000] cursor-pointer" />
-            <SiMongodb class="text-green-500" title="MongoDB" className="hover:text-[#47A248] cursor-pointer" />
+            <FaReact className="text-blue-500 w-6 h-6 hover:text-[#61DAFB] cursor-pointer" title="React" />
+            <FaNodeJs className="w-6 h-6 text-white cursor-pointer hover:text-yellow-300" title="Node.js" />
+            <SiExpress className="w-6 h-6 text-yellow-500 cursor-pointer hover:text-yellow-400" title="Express" />
+            <SiMongodb className="text-green-500 w-6 h-6 hover:text-[#47A248] cursor-pointer" title="MongoDB" />
           </div>
         </div>
 

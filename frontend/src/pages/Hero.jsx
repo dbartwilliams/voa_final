@@ -11,7 +11,7 @@ const Hero = () => {
         <h1 className="text-3xl text-center font-bold md:text-5xl lg:text-4xl xl:text-5xl lg:text-left lg:max-w-[540px] textcol">
         African Voices of A New Generation
         </h1>
-        <p className="mt-4 text-center text-dark-light md:text-xl lg:text-base xl:text-xl lg:text-left">
+        <p className="mt-4 text-center lg:text-2xl md:text-xl xl:text-xl lg:text-left">
         Africa is a crime scene, bleeding from the wounds of colonization, endless genocides and imperialism. The land needs time to heal, but NOT in the present of the colonizers." The wounds of our ancestors demand justice, not silence.
         </p>
         <Search className="mt-10 lg:mt-6 xl:mt-10" />

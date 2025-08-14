@@ -10,20 +10,24 @@
 
 @plugin "@tailwindcss/typography";
 
-
-
 @theme {
-      --font-gelasio: "Gelasio", "sans-serif";
-      --breakpoint-3xl: 120rem;
+  --font-gelasio: "Gelasio", "sans-serif";
 
-      --color-white: #FFFFFF;
-      --color-black: #242424;
-      --color-grey: #F3F3F3;
-      --color-dark-grey: #6B6B6B;
-      --color-red: #FF4E4E;
-      --color-transparent: transparent;
-      --color-twitter: #1DA1F2;
-      --color-purple: #8B46FF;
+  /* --breakpoint-*: initial; */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  --color-white: #FFFFFF;
+  --color-black: #242424;
+  --color-grey: #F3F3F3;
+  --color-dark-grey: #6B6B6B;
+  --color-red: #FF4E4E;
+  --color-transparent: transparent;
+  --color-twitter: #1DA1F2;
+  --color-purple: #8B46FF;
     }
 
     @layer components {

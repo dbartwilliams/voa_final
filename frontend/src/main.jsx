@@ -1,10 +1,8 @@
 import './index.css'
 
-
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-// import axios from 'axios';
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { HelmetProvider } from "react-helmet-async";
 
