@@ -81,10 +81,6 @@ const ProfilePage = () => {
 
         <div className="items-center hidden gap-3 ml-auto mr-4 lg:flex">
           <ProfilePicture avatar={profileData?.avatar} />
-            {/* <span 
-              className="text-sm text-[#5eeccc] tracking-[.4em]">
-              Edit your Profile
-            </span> */}
           </div>
 
           <form onSubmit={handleSubmit(submitHandler)}>

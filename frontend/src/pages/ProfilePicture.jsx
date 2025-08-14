@@ -80,7 +80,7 @@ const ProfilePicture = ({ avatar }) => {
           >
             {avatar ? (
               <img
-                src={stables.UPLOAD_FOLDER_BASE_URL + avatar}
+                src={`${stables.UPLOAD_FOLDER_BASE_URL}/${avatar}`}
                 alt="profile"
                 className="object-cover w-full h-full"
               />

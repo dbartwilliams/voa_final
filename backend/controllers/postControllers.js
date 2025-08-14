@@ -28,33 +28,7 @@ const createPost = async (req, res, next) => {
   }
 };
 
-// const createPost = async (req, res, next) => {
-//   try {
-//     const generalCategory = await PostCategories.findOne({ name: "General" });
-//     const defaultCategoryIds = generalCategory ? [generalCategory._id] : [];
-//     const defaultTagStrings = ["War"];
 
-//     const post = new Post({
-//       title: "sample title",
-//       caption: "Please replace the sample caption",
-//       slug: uuidv4(),
-//       isPublished: false,
-//       body: {
-//         type: "doc",
-//         content: [],
-//       },
-//       photo: "",
-//       user: req.user._id,
-//       categories: defaultCategoryIds,
-//       tags: defaultTagStrings,
-//     });
-
-//     const createdPost = await post.save();
-//     return res.json(createdPost);
-//   } catch (error) {
-//     next(error);
-//   }
-// }
 const updatePost = async (req, res, next) => {
   try {
     const post = await Post.findOne({ slug: req.params.slug });
@@ -192,12 +166,6 @@ const getAllPosts = async (req, res, next) => {
       : []; // Expecting categories to be comma-seperated
 
       let where = {};
-
-      // Non-admins (or guests) can only see published posts
-        // if (!req.user || !req.user.admin) {
-        //   where.isPublished = true;
-        // }
-
 
     if (filter) {
       where.title = { $regex: filter, $options: "i" };

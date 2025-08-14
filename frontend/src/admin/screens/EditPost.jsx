@@ -23,18 +23,18 @@ const promiseOptions = async (inputValue) => {
 };
 
 const EditPost  = () => {
-   const { slug } = useParams();
-   const navigate = useNavigate();
-   const queryClient = useQueryClient();
-   const userState = useSelector((state) => state.user);
-   const [initialPhoto, setInitialPhoto] = useState(null)
-   const [photo, setPhoto] = useState(null)
-   const [body, setBody] = useState(null);
-   const [categories, setCategories] = useState(null);
-   const [title, setTitle] = useState("");
-   const [tags, setTags] = useState(null);
-   const [postSlug, setPostSlug] = useState(slug);
-   const [caption, setCaption] = useState("");
+  const { slug } = useParams();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const userState = useSelector((state) => state.user);
+  const [initialPhoto, setInitialPhoto] = useState(null);
+  const [photo, setPhoto] = useState(null);
+  const [body, setBody] = useState(null);
+  const [categories, setCategories] = useState(null);
+  const [title, setTitle] = useState("");
+  const [tags, setTags] = useState(null);
+  const [postSlug, setPostSlug] = useState(slug);
+  const [caption, setCaption] = useState("");
    const [isPublished, setIsPublished] = useState("");
 
 
@@ -43,11 +43,13 @@ const EditPost  = () => {
     queryFn: () => getSinglePost({ slug }), 
     queryKey: ['blog', slug ],
     onSuccess: (data) => {
-      setInitialPhoto(data?.photo);
+      setInitialPhoto(data?.photo || null);
       setCategories(data.categories.map((item) => item._id));
       setTitle(data.title);
       setTags(data.tags);
-      setTags(data.caption);
+      setCaption(data.caption || "");
+      setBody(data.body || "");
+      setIsPublished(Boolean(data.isPublished));
     },
     refetchOnWindowFocus: false,
   });
@@ -93,7 +95,7 @@ const EditPost  = () => {
           return file;
         };
         const picture = await urlToObject(
-          stables.UPLOAD_FOLDER_BASE_URL + data?.photo
+           `${stables.UPLOAD_FOLDER_BASE_URL}/${data.photo}`
         );
   
         updatedData.append("postPicture", picture);
@@ -133,17 +135,21 @@ const EditPost  = () => {
 
                   {/* LABEL AND HIDDEN INPUT */}
                 <label htmlFor="postPicture" className='w-full cursor-pointer'>
-                    {photo ? (
-                      <img 
-                        src={URL.createObjectURL(photo)} alt="Post Image"
-                        className='w-[800px] rounded ' />
-                    ) : initialPhoto ? (
-                      <img 
-                        src={ stables.UPLOAD_FOLDER_BASE_URL + data?.photo }
-                        alt="Post Image"
-                        className="w-full rounded-xl"
+                {photo ? (
+                        // New image just selected
+                        <img
+                          src={URL.createObjectURL(photo)}
+                          alt="Post Image"
+                          className="w-[800px] rounded"
                         />
-                    ) : (
+                      ) : initialPhoto ? (
+                        // Existing image from server
+                        <img
+                          src={`${stables.UPLOAD_FOLDER_BASE_URL}/${data?.photo}`}
+                          alt="Post Image"
+                          className="w-full rounded-xl"
+                        />
+                      ) : (
                       <div className='flex items-center justify-center w-full min-h-[200px] bg-blue-50/50'>
                          <HiOutlineCamera className="w-12 h-auto" />
                       </div>
@@ -305,5 +311,3 @@ const EditPost  = () => {
   )
 }
 export default EditPost;
-
-

@@ -34,7 +34,7 @@ const Hero = () => {
       </div>
       <div className="hidden ml-10 lg:block lg:1/2">
         <img
-          className="object-cover w-full transition-transform duration-500 ease-in-out transform rounded-md hover:scale-105"
+          className="object-cover w-full rounded-md"
           src={images.HeroImg}
           alt="users are reading articles"
         />

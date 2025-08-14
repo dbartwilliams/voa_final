@@ -147,7 +147,8 @@ const ManagePosts = () => {
                                                     <img
                                                         src={
                                                             post?.photo
-                                                            ? stables.UPLOAD_FOLDER_BASE_URL + post?.photo
+                                                            // ? stables.UPLOAD_FOLDER_BASE_URL + post?.photo
+                                                        ?   `${stables.UPLOAD_FOLDER_BASE_URL}/${post.photo}`
                                                             : images.samplePostImage
                                                         }
                                                         alt="Post Image"

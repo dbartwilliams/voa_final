@@ -22,13 +22,16 @@ dotenv.config();
 connectDB();
 const app = express();
 
+const corsOptions = {
+  exposedHeaders: "*",
+};
 
+app.use(cors(corsOptions));
 
-// ✅ Enable CORS for frontend + cookies
-app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true
-}));
+app.get("/", (req, res) => {
+  res.send("Server is running...");
+});
+
 
 // Middlewares
 app.use(express.json({ limit: '50mb' })); 

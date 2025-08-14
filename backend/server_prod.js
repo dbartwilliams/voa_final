@@ -4,7 +4,8 @@ import path from "path";
 import { fileURLToPath } from "url";
 import connectDB from "./config/db.js";
 import cors from "cors";
-import compression from "compression";
+import mongoose from "mongoose";
+import prerender from "prerender-node"; // ✅ SEO support
 
 import {
   errorResponserHandler,
@@ -16,88 +17,97 @@ import userRoutes from "./routes/userRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
 import commentRoutes from "./routes/commentRoutes.js";
 import postCategoriesRoutes from "./routes/postCategoriesRoutes.js";
+import contactUsRoutes from "./routes/contactUsRoutes.js";
 
 dotenv.config();
-
-// Connect to DB
 connectDB();
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 const isProduction = process.env.NODE_ENV === "production";
 
-// ✅ Get current module's directory name
+// Current module path
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// ✅ CORS config (supports multiple origins from env)
-const allowedOrigins = process.env.CLIENT_URL
-  ? process.env.CLIENT_URL.split(",").map(url => url.trim())
-  : ["http://localhost:5173"];
+// ✅ Enable SEO prerender for bots
+app.use(prerender);
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+// ✅ CORS setup
+if (!isProduction) {
+  // Dev: allow from multiple URLs if needed
+  const allowedOrigins = process.env.CLIENT_URLS
+    ? process.env.CLIENT_URLS.split(",").map(o => o.trim())
+    : ["http://localhost:5173"];
+
+  app.use(cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) !== -1) {
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
       }
     },
     credentials: true,
-  })
-);
-
-// ✅ Compression for production
-if (isProduction) {
-  app.use(compression());
+  }));
+} else {
+  // Prod: allow only specified URLs
+  app.use(cors({
+    origin: process.env.CLIENT_URLS
+      ? process.env.CLIENT_URLS.split(",").map(o => o.trim())
+      : [],
+    credentials: true,
+  }));
 }
 
-// ✅ Body parser config
+// ✅ Body parsers
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
-// API Routes
+// ✅ Always serve uploads (dev + prod)
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+
+// API routes
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/post-categories", postCategoriesRoutes);
-
-// ✅ Static uploads folder
-app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+app.use("/api/contact", contactUsRoutes);
 
 // ✅ Serve frontend in production
 if (isProduction) {
-  const frontendPath = path.join(__dirname, "../frontend/dist");
-  app.use(express.static(frontendPath));
-
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
   app.get("*", (req, res) => {
-    res.sendFile(path.join(frontendPath, "index.html"));
+    res.sendFile(path.resolve(__dirname, "../frontend/dist", "index.html"));
   });
 }
 
-// Error Handlers
+// ✅ Health check route
+app.get("/", async (req, res) => {
+  try {
+    const dbState = mongoose.connection.readyState;
+    const states = ["disconnected", "connected", "connecting", "disconnecting"];
+
+    res.json({
+      message: "Voice of Africa API is running 🚀",
+      database: states[dbState] || "unknown",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Server is running, but database check failed",
+      error: error.message,
+    });
+  }
+});
+
+// ✅ Error handlers
 app.use(invalidPathHandler);
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(err.status || 500).json({
-    message: err.message || "Something went wrong!",
-    ...(isProduction ? {} : { stack: err.stack }), // hide stack in production
-  });
-});
+app.use(errorResponserHandler);
 
-// ✅ Graceful shutdown handlers
-process.on("unhandledRejection", (err) => {
-  console.error(`Unhandled Rejection: ${err.message}`);
-  process.exit(1);
-});
-
-process.on("uncaughtException", (err) => {
-  console.error(`Uncaught Exception: ${err.message}`);
-  process.exit(1);
-});
-
-const PORT = process.env.PORT || 5000;
-
+// Start server
 app.listen(PORT, () => {
-  console.log(`✅ Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+  console.log(
+    `Server is running on PORT: ${PORT} in ${isProduction ? "production" : "development"} mode`
+  );
 });
