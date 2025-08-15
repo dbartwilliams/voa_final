@@ -166,8 +166,8 @@ const EditPost  = () => {
                   {/* DELETE IMAGE */}
                   <button type='button' 
                       onClick={handleDeleteImage}
-                      className='px-2 py-1 mt-4 text-sm text-black bg-red-300 rounded cursor-pointer w-fit'>   
-                    Delete Image
+                      className='px-2 py-1 mt-4 text-black bg-[#5eeccc] hover:bg-[#1be415] rounded cursor-pointer w-fit text-sm'>   
+                    Delete Img
                   </button>
 
                     {/*ARTICLE CATEGORY  */}
@@ -298,7 +298,7 @@ const EditPost  = () => {
                         disabled={isLoadingUpdatePostDetail}
                         type="button"
                         onClick={handleUpdatePost}
-                        className="w-full px-4 py-2 mt-5 font-semibold text-white rounded cursor-pointer bg-slate-500 disabled:cursor-not-allowed disabled:opacity-70"
+                        className="w-full px-4 py-2 mt-5 font-semibold text-black rounded cursor-pointer bg-[#5eeccc] hover:bg-[#1be415] disabled:cursor-not-allowed disabled:opacity-70"
                       >
                         Update Post
                       </button>

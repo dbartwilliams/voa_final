@@ -33,11 +33,11 @@ function App() {
             <Route path="/dashboard" element={<AdminLayout />}>
               <Route index element={<Admin />} />
               <Route path="comments" element={<Comments />} />
-              <Route path="users" element={<Users />} />
+              <Route path="users/manage" element={<Users />} />
               <Route path="posts/manage" element={<ManagePosts />} />
-              <Route path="posts/edit/manage/:slug" element={<EditPost />} />
+              <Route path="posts/manage/edit/:slug" element={<EditPost />} />
               <Route path="categories/manage" element={<Categories />} />
-              <Route path="categories/edit/manage/:slug" element={<EditCategories />} />
+              <Route path="categories/manage/edit/:slug" element={<EditCategories />} />
             </Route>
    
      </Routes>

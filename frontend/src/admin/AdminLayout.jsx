@@ -43,13 +43,14 @@ const AdminLayout = () => {
 
 
   return (
-    <div className='flex flex-col lg:flex-row'>
-      <Header />
-
-      <main className="flex-1 p-4 lg:p-6">
-        <Outlet />
-      </main>
-    </div>
+    <div className="flex flex-col h-screen lg:flex-row"> {/* 👈 Parent now has bg-gray-800 */}
+    <Header /> {/* Sidebar (already has bg-gray-800) */}
+    <main className="flex-1 p-4 overflow-auto lg:p-6"> {/* 👈 main has bg and overflow */}
+      <div className="h-full"> {/* 👈 Ensures Outlet fills space */}
+        <Outlet /> 
+      </div>
+    </main>
+  </div>
   )
 }
 

@@ -20,6 +20,7 @@ const Header = () => {
   const [activeNavName, setActiveNavName] = useState("dashboard");
   const windowSize = useWindowSize();
 
+
   const { mutate: mutateCreatePost, isLoading: isLoadingCreatePost } =
     useMutation({
       mutationFn: ({ slug, token }) => {
@@ -30,7 +31,7 @@ const Header = () => {
       onSuccess: (data) => {
         queryClient.invalidateQueries(["posts"]);
         toast.success("Post is created, edit that now!");
-        navigate(`/admin/posts/manage/edit/${data.slug}`);
+        navigate(`/dashboard/posts/edit/manage/${data.slug}`);
       },
       onError: (error) => {
         toast.error(error.message);
@@ -54,44 +55,50 @@ const Header = () => {
     mutateCreatePost({ token });
   };
 
+
+
   return (
-    <header className="flex h-fit w-full items-center justify-between p-4 lg:h-full lg:max-w-[300px] lg:flex-col lg:items-start lg:justify-start lg:p-0">
+    <header className="flex h-full w-full items-center justify-between p-4 lg:h-full lg:max-w-[300px] lg:flex-col lg:items-start lg:justify-start lg:p-0">
+       
       {/* logo */}
-      <Link to="/">
-        <img src={images.VoaLogo} alt="logo" className="w-[100px] lg:hidden" />
-      </Link>
+      {/* <Link to="/">
+        <img src={images.VoaLogo} alt="logo" className="w-[300px]" />
+      </Link> */}
+
       {/* menu burger icon */}
-      <div className="cursor-pointer lg:hidden">
-        {isMenuActive ? (
-          <AiOutlineClose className="w-6 h-6" onClick={toggleMenuHandler} />
-        ) : (
-          <AiOutlineMenu className="w-6 h-6" onClick={toggleMenuHandler} />
-        )}
+        <div className="cursor-pointer lg:hidden">
+            {isMenuActive ? (
+              <AiOutlineClose className="w-6 h-6" onClick={toggleMenuHandler} />
+            ) : (
+              <AiOutlineMenu className="w-6 h-6" onClick={toggleMenuHandler} />
+            )}
       </div>
-      {/* sidebar container */}
-      {isMenuActive && (
+
+        {/* sidebar container */}
+        {isMenuActive && (
         <div className="fixed inset-0 lg:static lg:h-full lg:w-full">
-          {/* underlay */}
-          <div
+           {/* underlay */}
+           <div
             className="fixed inset-0 bg-black opacity-50 lg:hidden"
             onClick={toggleMenuHandler}
           />
+
           {/* sidebar */}
-          <div className="fixed top-0 bottom-0 left-0 z-50 w-3/4 p-4 overflow-y-auto bg-black lg:static lg:h-full lg:w-full lg:p-6">
+          <div className="fixed top-0 bottom-0 left-0 z-50 w-3/4 p-4 overflow-y-auto lg:static lg:h-full lg:w-full lg:p-6">
             <Link to="/">
-              <img src={images.VoaLogo} alt="logo" className="w-16" />
+              <img src={images.VoaLogo} alt="logo" className="w-16 lg:hidden" />
             </Link>
-            <h4 className="mt-10 font-bold text-[#5eeccc] ">
-            <Link to="/" className="cursor-pointer border-b border-[#5eeccc] inline-block">
-                MAIN MENU
-              </Link>
+            <h4 className="mt-10 font-bold text-[#5eeccc]">
+              <Link to="/" className='cursor-pointer'>
+              MAIN MENU
+            </Link>
+              
             </h4>
-            {/* menu items */}
             <div className="mt-6 flex flex-col gap-y-[0.563rem]">
-              <NavItem
+            <NavItem
                 title="Dashboard"
-                link="/admin"
-                icon={<AiFillDashboard className="text-xl" />}
+                link="/dashboard"
+                icon={<AiFillDashboard className="text-xl text-white" />}
                 name="dashboard"
                 activeNavName={activeNavName}
                 setActiveNavName={setActiveNavName}
@@ -99,7 +106,7 @@ const Header = () => {
               <NavItem
                 title="Comments"
                 link="/dashboard/comments"
-                icon={<FaComments className="text-xl" />}
+                icon={<FaComments className="text-xl text-white" />}
                 name="comments"
                 activeNavName={activeNavName}
                 setActiveNavName={setActiveNavName}
@@ -107,15 +114,15 @@ const Header = () => {
 
               <NavItemCollapse
                 title="Posts"
-                icon={<MdDashboard className="text-xl" />}
+                icon={<MdDashboard className="text-xl text-white" />}
                 name="posts"
                 activeNavName={activeNavName}
                 setActiveNavName={setActiveNavName}
               >
-                 <Link to="/dashboard/posts/manage">Manage all posts</Link>
+                <Link to="/dashboard/posts/manage">Manage all posts</Link>
                 <button
                   disabled={isLoadingCreatePost}
-                  className="text-start disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="cursor-pointer text-start disabled:opacity-60 disabled:cursor-not-allowed"
                   onClick={() =>
                     handleCreateNewPost({ token: userState.userInfo.token })
                   }
@@ -127,8 +134,8 @@ const Header = () => {
 
               <NavItem
                 title="Users"
-                link="/dashboard/users/manage"
-                icon={<FaUser className="text-xl" />}
+                 link="/dashboard/users"
+                icon={<FaUser className="text-xl text-white" />}
                 name="users"
                 activeNavName={activeNavName}
                 setActiveNavName={setActiveNavName}
@@ -136,9 +143,10 @@ const Header = () => {
             </div>
           </div>
         </div>
-      )}
-    </header>
-  );
-};
+        )}
 
-export default Header;
+    </header>
+  )
+}
+
+export default Header

@@ -225,7 +225,7 @@ const ManagePosts = () => {
                                             type='button' className="text-red-400 cursor-pointer hover:hover:text-red-500 disabled:opacity-70 disabled:cursor-not-allowed">
                                             Delete
                                         </button>
-                                        <Link to={`/dashboard/posts/edit/manage/${post?.slug}`} 
+                                        <Link to={`/dashboard/posts/manage/edit/${post?.slug}`} 
                                             className="text-[#5eeccc] hover:hover:text-[#1be4b5]">
                                             Edit
                                         </Link>
