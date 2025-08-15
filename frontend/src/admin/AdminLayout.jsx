@@ -43,7 +43,7 @@ const AdminLayout = () => {
 
 
   return (
-    <div className='flex flex-col h-screen lg:flex-row'>
+    <div className='flex flex-col lg:flex-row'>
       <Header />
 
       <main className="flex-1 p-4 lg:p-6">

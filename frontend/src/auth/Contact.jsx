@@ -73,7 +73,7 @@ const Contact = () => {
         </div>
         <button
           type="submit"
-          className="px-4 py-2 text-black bg-[#5eeccc] rounded hover:bg-[#1be4b5] cursor-pointer"
+          className="px-4 py-2 text-black bg-[#5eeccc] rounded hover:bg-[#1be415] cursor-pointer"
         >
           Submit
         </button>

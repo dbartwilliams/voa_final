@@ -35,7 +35,7 @@ const EditPost  = () => {
   const [tags, setTags] = useState(null);
   const [postSlug, setPostSlug] = useState(slug);
   const [caption, setCaption] = useState("");
-   const [isPublished, setIsPublished] = useState("");
+  const [isPublished, setIsPublished] = useState("");
 
 
 
@@ -47,8 +47,8 @@ const EditPost  = () => {
       setCategories(data.categories.map((item) => item._id));
       setTitle(data.title);
       setTags(data.tags);
-      setCaption(data.caption || "");
-      setBody(data.body || "");
+      setCaption(data.caption);
+      setBody(data.body);
       setIsPublished(Boolean(data.isPublished));
     },
     refetchOnWindowFocus: false,

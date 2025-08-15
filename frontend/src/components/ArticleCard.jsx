@@ -33,7 +33,7 @@ const ArticleCard = ({ post }) => {
         <div className="flex flex-col justify-center w-full p-6 bg-gray-800 md:w-3/5">
           
         <Link to={`/blog/${post.slug}`} className="group">
-          <h2 className="mb-2 lg:text-[26px] text-[22px] font-bold text-[#5eeccc]  hover:text-[#1be4b5]">
+          <h2 className="mb-2 lg:text-[26px] text-[22px] font-bold text-[#5eeccc]  hover:text-[#1be415] ">
             {post.title}
           </h2>
         </Link>
@@ -47,25 +47,35 @@ const ArticleCard = ({ post }) => {
           {/* Profile + Date + Read More */}
           <div className="flex items-center justify-between pt-4 mt-auto border-t border-gray-700">
             {/* Left side - Profile image + date */}
-            <div className="flex items-center space-x-3">
-              <img
-                  src={
-                    post.user.avatar
-                      ? stables.UPLOAD_FOLDER_BASE_URL + post.user.avatar
-                      : images.userImage
-                  }
-                alt="user avatar"
-                className="object-cover w-10 h-10 rounded-full"
-              />
-              <span className="text-sm text-white border-b border-[#5eeccc]">
-              {formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
-              </span>
-            </div>
+           
+            <Link to={`/user/${post.user?.username || '#'}`}>
+                <div className="flex items-center space-x-3">
+                    <img
+                        src={
+                          post.user.avatar
+                            ? stables.UPLOAD_FOLDER_BASE_URL + post.user.avatar
+                            : images.userImage
+                        }
+                      alt="user avatar"
+                      className="object-cover w-10 h-10 rounded-full"
+                    />
+
+                      {/* Post Authot */}
+                      <span className="text-sm font-medium text-white border-b border-[#5eeccc] md:text-base hover:text-[#1be415]">
+                      {post.user?.name || 'Unknown Author'}
+                      </span>
+                        
+                      {/* Date Posted */}
+                      <span className="text-sm text-white border-b border-[#5eeccc]">
+                              {formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
+                      </span>
+                </div>
+            </Link>
 
             {/* Right side - Read More */}
             <Link
               to={`/blog/${post.slug}`}
-              className="text-sm font-medium text-white border-b border-[#5eeccc]"
+              className="text-sm font-medium text-white border-b border-[#5eeccc] hover:text-[#1be415]"
             >
               Read more →
             </Link>

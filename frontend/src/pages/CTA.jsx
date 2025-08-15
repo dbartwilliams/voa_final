@@ -1,5 +1,7 @@
 import React from 'react'
 import { images } from "../constants";
+import { Link } from "react-router-dom";
+
 
 const CTA = () => {
   return (
@@ -32,9 +34,16 @@ const CTA = () => {
                 className="w-full px-4 py-3 bg-gray-800 rounded-lg placeholder:text-dark-light"
                 placeholder="Your Email"
               />
-              <button className="w-full px-4 py-3 text-white bg-blue-700 rounded-lg md:w-fit md:whitespace-nowrap">
-                Submit
-              </button>
+
+              <Link to="/contact">
+                <button
+                  
+                    className="w-full px-4 py-3 text-black bg-[#5eeccc] hover:bg-[#1be415] rounded-lg 
+                    md:w-fit md:whitespace-nowrap cursor-pointer">
+                    Submit
+                </button>
+              </Link>
+
             </div>
             <p className="mt-6 text-sm leading-7 text-dark-light md:text-center md:text-base lg:text-left">
               <span className="tracking-[.4em] italic text-[#B3BAC5] md:not-italic md:font-normal md:text-dark-light">

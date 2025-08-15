@@ -131,9 +131,10 @@ const Login = () => {
             <button
               type="submit"
               disabled={!isValid || isLoading}
-              className="w-full px-8 py-4 my-4 text-lg text-white bg-blue-900 rounded-lg disabled:opacity-70 disabled:cursor-not-allowed tracking-[.3em]"
+              className="w-full px-8 py-4 my-4 text-lg text-black bg-[#5eeccc] rounded-lg disabled:opacity-70 disabled:cursor-not-allowed tracking-[.3em] cursor-pointer
+              hover:bg-[#1be415]"
             >
-              Sign In
+              LOg-In
             </button>
             <p className="text-sm text-[#5eeccc] tracking-[.4em]">
               Not Registered?{" "}

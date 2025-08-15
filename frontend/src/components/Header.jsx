@@ -37,9 +37,9 @@ const NavItem = ({ item }) => {
     <li className="relative group">
       {item.type === "link" ? (
         <>
-          <Link to={item.href} className="flex items-center px-4 py-2 group-hover:text-[#5eeccc] transition-colors duration-300"
+          <Link to={item.href} className="flex items-center px-4 py-2 group-hover:text-[#1be415]  transition-colors duration-300"
           >
-             <item.icon className="mr-2 w-7 h-7 text-current group-hover:text-[#5eeccc] transition-colors duration-300" />
+             <item.icon className="mr-2 w-7 h-7 text-current group-hover:text-[#1be415] transition-colors duration-300" />
             {item.name}
           </Link>
           <span className="cursor-pointer text-blue-500 absolute transition-all duration-500 font-bold right-0 top-0 group-hover:right-[90%] opacity-0 group-hover:opacity-100">
@@ -96,7 +96,7 @@ const Header = () => {
   };
 
   return (
-    <section className="top-0 left-0 right-0 z-50 ">
+    <section className="top-0 left-0 right-0 z-50">
       <header className="container flex items-center justify-between px-5 py-4 mx-auto">
         <Link to="/">
         <img className="w-60" src={images.VoaLogo} alt="logo" />
@@ -136,7 +136,7 @@ const Header = () => {
               <div className="relative group">
                 <div className="flex flex-col items-center">
                   <button
-                    className="flex items-center px-6 py-2 mt-5 font-semibold bg-[#5eeccc] text-black transition-all duration-300 rounded-md gap-x-1 lg:mt-0 hover:bg-[#1be4b5] hover:text-white"
+                    className="flex items-center px-6 py-2 mt-5 font-semibold bg-[#5eeccc] text-black transition-all duration-300 rounded-md gap-x-1 lg:mt-0 hover:bg-[#1be415]  cursor-pointer"
                     onClick={() => setProfileDrowpdown(!profileDrowpdown)}
                   >
                     <span>Account</span>
@@ -151,7 +151,7 @@ const Header = () => {
                         <button
                           onClick={() => navigate("/dashboard")}
                           type="button"
-                          className="flex px-1 py-1 text-white cursor-pointer hover:text-[#1be4b5]">
+                          className="flex px-1 py-1 text-white cursor-pointer hover:text-[#1be415]">
                           <MdDashboard className="w-5 h-5 mr-2"/>
                           Dashboard
                         </button>
@@ -160,14 +160,14 @@ const Header = () => {
                       <button
                         onClick={() => navigate("/profile")}
                         type="button"
-                        className="flex px-1 py-2 text-white cursor-pointer hover:text-[#1be4b5]">
+                        className="flex px-1 py-2 text-white cursor-pointer hover:text-[#1be415]">
                         <CiUser className="w-5 h-5 mr-1"/>
                         Profile
                       </button>
                       <button
                         onClick={logoutHandler}
                         type="button"
-                        className="flex px-1 py-2 text-white cursor-pointer  hover:text-[#1be4b5]">
+                        className="flex px-1 py-2 text-white cursor-pointer hover:text-[#1be415]">
                           <CgLogOut className="w-5 h-5 mr-1"/>
                         Logout
                       </button>
@@ -179,7 +179,7 @@ const Header = () => {
           ) : (
             <button
               onClick={() => navigate("/login")}
-             className="px-4 py-1 mt-5 font-semibold text-black bg-[#5eeccc] transition-all duration-300 rounded lg:mt-0  hover:text-white"
+             className="px-4 py-1 mt-5 font-semibold text-black bg-[#5eeccc] transition-all duration-300 rounded lg:mt-0  hover:bg-[#1be415] cursor-pointer"
             >
               LOg-In
             </button>

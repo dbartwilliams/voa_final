@@ -103,7 +103,7 @@ const ArticleDetailPage = () => {
                       {!isLoading && !isError && (
                         <div
                           className="
-                          text-lg 
+                          text-[22px] 
                           leading-relaxed 
                           tracking-wide 
                           prose  
@@ -144,25 +144,22 @@ const ArticleDetailPage = () => {
                       />
 
                         <div className="flex flex-col items-center w-full mt-10">
-                         <h1 className="mb-4 text-base text-[#5eeccc] tracking-[.1em]">
+                           <h1 className="mb-4 text-base text-[#5eeccc] tracking-[.1em]">
                             First People on the Planet
-                        </h1>
+                           </h1>
                             <img 
-                                src={images.Beauties} 
+                                src="/beauties.png" 
                                 alt="advertisement" 
-                                className="w-[300px] rounded-lg shadow-md"
+                                className="w-[300px] h-[200px] rounded-lg shadow-md object-cover"
                             />
                         </div>
                     </div>
                 </div>
-
             </section>
         </>
-
              )}
         </MainLayout>
     )
-
 }
 
 export default ArticleDetailPage;

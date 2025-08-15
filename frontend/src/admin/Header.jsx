@@ -58,12 +58,12 @@ const Header = () => {
 
 
   return (
-    <header className="flex h-fit w-full items-center justify-between p-4 lg:h-full lg:max-w-[300px] lg:flex-col lg:items-start lg:justify-start lg:p-0">
+    <header className="flex h-fit w-full items-center justify-between p-4 lg:h-full lg:max-w-[300px] lg:flex-col lg:items-start lg:justify-start lg:p-0 bg-gray-800">
        
       {/* logo */}
-      <Link to="/">
+      {/* <Link to="/">
         <img src={images.VoaLogo} alt="logo" className="w-[300px]" />
-      </Link>
+      </Link> */}
 
       {/* menu burger icon */}
         <div className="cursor-pointer lg:hidden">
@@ -84,12 +84,15 @@ const Header = () => {
           />
 
           {/* sidebar */}
-          <div className="fixed top-0 bottom-0 left-0 z-50 w-3/4 p-4 overflow-y-auto bg-gray-800 lg:static lg:h-full lg:w-full lg:p-6">
+          <div className="fixed top-0 bottom-0 left-0 z-50 w-3/4 p-4 overflow-y-auto lg:static lg:h-full lg:w-full lg:p-6">
             <Link to="/">
               <img src={images.VoaLogo} alt="logo" className="w-16 lg:hidden" />
             </Link>
             <h4 className="mt-10 font-bold text-[#5eeccc]">
+              <Link to="/" className='cursor-pointer'>
               MAIN MENU
+            </Link>
+              
             </h4>
             <div className="mt-6 flex flex-col gap-y-[0.563rem]">
             <NavItem

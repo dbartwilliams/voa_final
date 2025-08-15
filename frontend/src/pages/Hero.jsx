@@ -8,7 +8,7 @@ const Hero = () => {
   return (
     <section className="container flex flex-col px-5 py-5 mx-auto lg:flex-row">
       <div className="mt-10 lg:w-1/2">
-        <h1 className="text-3xl text-center font-bold md:text-5xl lg:text-4xl xl:text-5xl lg:text-left lg:max-w-[540px] textcol">
+        <h1 className="text-3xl text-center font-bold md:text-5xl lg:text-4xl xl:text-5xl lg:text-left lg:max-w-[540px] textcol hover:text-[#1be415] ">
         African Voices of A New Generation
         </h1>
         <p className="mt-4 text-center lg:text-2xl md:text-xl xl:text-xl lg:text-left">

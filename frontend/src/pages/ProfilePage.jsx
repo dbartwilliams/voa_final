@@ -173,7 +173,7 @@ const ProfilePage = () => {
             <button
               type="submit"
               disabled={!isValid || profileIsLoading || updateProfileIsLoading}
-              className="bg-[#5eeccc] hover:bg-[#1be4b5] text-black text-lg py-4 px-8 w-full rounded mb-4 disabled:opacity-70 disabled:cursor-not-allowed tracking-[.3em] cursor-pointer"
+              className="bg-[#5eeccc] hover:bg-[#1be415] text-black text-lg py-4 px-8 w-full rounded mb-4 disabled:opacity-70 disabled:cursor-not-allowed tracking-[.3em] cursor-pointer"
             >
               Update
             </button>
