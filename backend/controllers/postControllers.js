@@ -1,12 +1,14 @@
-import { uploadPicture } from "../middleware/uploadPictureMiddleware.js";
+import ImageKit from "imagekit";
 import Post from "../models/Post.js";
-import Comment from "../models/Comment.js";
-import { fileRemover } from "../utils/fileRemover.js";
 import { v4 as uuidv4 } from "uuid";
+
 
 const createPost = async (req, res, next) => {
   try {
       const defaultTagStrings = ["War"];
+      const defaultImage = "default-post.png"; // only the filename
+      // const defaultImage = `${req.protocol}://${req.get('host')}/images/default-post.png`;
+
     const post = new Post({
       title: "sample title",
       caption: "Please replace the sample caption",
@@ -14,9 +16,19 @@ const createPost = async (req, res, next) => {
       isPublished: false,
       body: {
         type: "doc",
-        content: [],
+        content: [
+          {
+            type: "paragraph",
+            content: [
+              {
+                type: "text",
+                text: "This is sample content. Edit me!"
+              }
+            ]
+          }
+        ],
       },
-      photo: "",
+      photo: defaultImage, // Local image path
         tags: defaultTagStrings,
       user: req.user._id,
     });
@@ -28,60 +40,54 @@ const createPost = async (req, res, next) => {
   }
 };
 
-
 const updatePost = async (req, res, next) => {
   try {
     const post = await Post.findOne({ slug: req.params.slug });
+    if (!post) return next(new Error("Post not found"));
 
-    if (!post) {
-      return next(new Error("Post was not found"));
+    // If no new file uploaded, use existingPhoto from FormData
+    const existingPhoto = req.body.existingPhoto || null;
+
+    if (req.imagekitResult) {
+      post.photo = req.imagekitResult.url; // new upload
+    } else if (existingPhoto) {
+      post.photo = existingPhoto; // keep existing
+    } else {
+      post.photo = ""; // no image
     }
 
-    const upload = uploadPicture.single("postPicture");
+    // Parse the JSON document from FormData
+    const formData = new FormData();
+    const { title, body, tags, categories, isPublished, caption, slug } = parsed;
 
-    const handleUpdatePostData = async (data, next) => {
-      try {
-        const parsed = JSON.parse(data);
-        const { title, caption, slug, body, tags, categories, isPublished } = parsed;
+    post.title = title || post.title;
+    post.body = body || post.body;
+    post.caption = caption || post.caption;
+    post.slug = slug || post.slug;
+    post.isPublished = isPublished ?? post.isPublished;
+    post.tags = tags || post.tags;
+    post.categories = categories || post.categories;
 
-        post.title = title || post.title;
-        post.caption = caption || post.caption;
-        post.slug = slug || post.slug;
-        post.body = body || post.body;
-        post.isPublished = isPublished ?? post.isPublished;
-        post.tags = tags || post.tags;
-        post.categories = categories || post.categories;
+    const updatedPost = await post.save();
+    res.json(updatedPost);
+  } catch (error) {
+    next(error);
+  }
+};
 
-        const updatedPost = await post.save();
-        return res.json(updatedPost);
-      } catch (err) {
-        next(new Error("Invalid update data: " + err.message));
-      }
-    };
-
-    upload(req, res, async function (err) {
-      if (err) {
-        return next(new Error("Upload error: " + err.message));
-      }
-
-      try {
-        if (req.file) {
-          if (post.photo) {
-            fileRemover(post.photo);
-          }
-          post.photo = req.file.filename;
-        } else {
-          if (post.photo) {
-            fileRemover(post.photo);
-          }
-          post.photo = "";
-        }
-
-        await handleUpdatePostData(req.body.document, next);
-      } catch (err) {
-        next(err);
-      }
+// Controller for upload authentication
+const uploadAuth = async (req, res, next) => {
+  try {
+    // Initialize ImageKit inside the function
+    const imagekit = new ImageKit({
+      urlEndpoint: process.env.IK_URL_ENDPOINT,
+      publicKey: process.env.IK_PUBLIC_KEY,
+      privateKey: process.env.IK_PRIVATE_KEY,
     });
+
+    const result = imagekit.getAuthenticationParameters();
+    res.status(200).json(result);
+    
   } catch (error) {
     next(error);
   }
@@ -215,4 +221,11 @@ const getAllPosts = async (req, res, next) => {
   }
 };
 
-export { createPost, updatePost, deletePost, getPost, getAllPosts };
+export { 
+    createPost, 
+    updatePost, 
+    deletePost, 
+    getPost, 
+    getAllPosts, 
+    uploadAuth
+  };

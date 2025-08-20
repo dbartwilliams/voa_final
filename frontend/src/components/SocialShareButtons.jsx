@@ -40,5 +40,3 @@ const SocialShareButtons = ({ url, title }) => {
   );
 };
 export default SocialShareButtons;
-
-

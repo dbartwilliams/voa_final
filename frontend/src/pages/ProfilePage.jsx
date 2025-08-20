@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import MainLayout from "../components/MainLayout";
+import MainLayout from "../layouts/MainLayout";
 import { getUserProfile, updateProfile } from "../services/index/users";
 import ProfilePicture from "./ProfilePicture";
 import { userActions } from "../store/reducers/userReducers";

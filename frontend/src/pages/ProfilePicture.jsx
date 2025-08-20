@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { createPortal } from "react-dom";
 import { HiOutlineCamera } from "react-icons/hi";
+import Image from "../components/Image";
+import { getAvatarPath } from '../util/imageKitHelper';
 
-import { stables } from "../constants";
+// import { stables } from "../constants";
 import CropEasy from "../components/crop/CropEasy";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,12 +12,17 @@ import { updateProfilePicture } from "../services/index/users";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { userActions } from "../store/reducers/userReducers";
 
+
 const ProfilePicture = ({ avatar }) => {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.user);
   const [openCrop, setOpenCrop] = useState(false);
   const [photo, setPhoto] = useState(null);
+
+   // Avatar URL with fallback
+   const user = userState?.userInfo; // define first
+
 
   const { mutate, isLoading } = useMutation({
     mutationFn: ({ token, formData }) => {
@@ -64,13 +71,7 @@ const ProfilePicture = ({ avatar }) => {
             createPortal(
               <CropEasy photo={photo} setOpenCrop={setOpenCrop} />,
               document.getElementById('portal')
-            )
-          }
-      {/* {openCrop &&
-        createPortal(
-          <CropEasy photo={photo} setOpenCrop={setOpenCrop} />,
-          document.getElementById("portal")
-        )} */}
+            )}
 
       <div className="flex items-center w-full gap-x-4">
         <div className="relative w-20 h-20 overflow-hidden rounded-full outline outline-offset-2 lutline-primary">
@@ -79,9 +80,9 @@ const ProfilePicture = ({ avatar }) => {
             className="absolute inset-0 bg-transparent rounded-full cursor-pointer"
           >
             {avatar ? (
-              <img
-                src={`${stables.UPLOAD_FOLDER_BASE_URL}/${avatar}`}
-                alt="profile"
+              <Image
+              src={getAvatarPath(user?.avatar)}
+                alt={user?.name || "Admin"} 
                 className="object-cover w-full h-full"
               />
             ) : (

@@ -1,47 +1,52 @@
+// uploadPictureMiddleware.js
 import multer from "multer";
-import path from "path";
-import { fileURLToPath } from "url";
-import { existsSync, mkdirSync } from "fs";
+import ImageKit from "imagekit";
 
-// Get directory name equivalent
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Ensure uploads directory exists
-const uploadsDir = path.join(__dirname, "../uploads");
-if (!existsSync(uploadsDir)) {
-  mkdirSync(uploadsDir, { recursive: true });
-}
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadsDir);
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    const cleanName = file.originalname.replace(/[^a-zA-Z0-9.]/g, '-');
-    cb(null, `${uniqueSuffix}-${cleanName}`);
-  },
-});
+// Multer memory storage
+const storage = multer.memoryStorage();
 
 const uploadPicture = multer({
-  storage: storage,
-  limits: {
-    fileSize: 50 * 1024 * 1024, // 50 MB in bytes
-    // fileSize: 1 * 1000000, // 1MB
-    files: 1 // Limit to single file uploads
-  },
-  fileFilter: function (req, file, cb) {
-    const filetypes = /jpe?g|png|webp/; // ✅ Added webp
-    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-    const mimetype = filetypes.test(file.mimetype);
-
-    if (mimetype && extname) {
-      return cb(null, true);
-    } else {
-      cb(new Error("Only images are allowed (PEG, JPG, PNG, WebP)"));
-    }
+  storage,
+  limits: { fileSize: 50 * 1024 * 1024, files: 1 },
+  fileFilter: (req, file, cb) => {
+    const allowed = /jpe?g|png|webp/;
+    const extOk = allowed.test(file.originalname.toLowerCase());
+    const mimeOk = allowed.test(file.mimetype);
+    if (extOk && mimeOk) cb(null, true);
+    else cb(new Error("Only JPEG, PNG, and WebP images are allowed"));
   },
 });
 
-export { uploadPicture };
+const processImageUpload = async (req, res, next) => {
+  if (!req.file) return next();
+
+  // Lazy init ImageKit here
+  const imagekit = new ImageKit({
+    publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
+    privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
+    urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
+  });
+
+  try {
+    const result = await imagekit.upload({
+      file: req.file.buffer,
+      fileName: `${Date.now()}-${req.file.originalname}`,
+      folder: "/img",
+      useUniqueFileName: true,
+    });
+
+    req.imagekitResult = {
+      url: result.url,
+      fileId: result.fileId,
+      thumbnailUrl: result.thumbnailUrl,
+    };
+
+    next();
+  } catch (error) {
+    console.error("ImageKit upload error:", error);
+    return res.status(500).json({ error: "Image upload failed" });
+  }
+};
+
+export { uploadPicture, processImageUpload };
+

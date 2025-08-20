@@ -25,7 +25,7 @@ const Search = ({ className, onSearchKeyword }) => {
         />
       </div>
       <button type="submit"
-        className="w-full px-5 py-3 font-semibold text-black bg-[#5eeccc] hover:bg-[#1be415] rounded-lg md:absolute md:right-2 md:top-1/2 md:-translate-y-1/2 md:w-fit md:py-2 cursor-pointer"
+        className="w-full px-5 py-3 font-semibold rounded-lg cursor-pointer buttoncol md:absolute md:right-2 md:top-1/2 md:-translate-y-1/2 md:w-fit md:py-2"
       >
         Search
       </button>

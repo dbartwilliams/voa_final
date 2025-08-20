@@ -1,12 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Gelasio:ital,wght@0,400..700;1,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 @import "tailwindcss";
+@plugin "daisyui";
 
 
-/* @plugin "daisyui"; */
-@plugin "daisyui" {
-  themes: light --default, dark --prefersdark;
-}
 
 @plugin "@tailwindcss/typography";
 
@@ -44,8 +41,16 @@
     }
 
     .textcol{
-      @apply text-[#5eeccc] hover:text-[#1be4b5]
+      @apply text-[#5eeccc] hover:text-[#1be415]
     }  
+
+    .texthover{
+      @apply text-white hover:text-[#1be415]
+    }  
+
+    .buttoncol {
+      @apply bg-[#5eeccc] hover:bg-[#1be415] text-black
+    }
 
     .editor-btn {
       @apply flex items-center justify-center w-10 rounded-lg text-slate-700 aspect-square;
@@ -73,6 +78,30 @@
       color: white !important;
     }
 
+    /* DASHBORAD */
+    /* Animation for page transitions */
+      .page-enter {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      .page-enter-active {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 300ms, transform 300ms;
+      }
+
+      .page-exit {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .page-exit-active {
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 300ms, transform 300ms;
+      }
+    /* DASHBORAD */
+
 
 }
-

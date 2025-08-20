@@ -37,10 +37,11 @@ const CommentForm = ({
           <button
             disabled={loading}
             type="submit"
-            className="px-6 py-2.5 rounded bg-[#1be4b5] hover:bg-[#5eeccc] tracking-[.1em] cursor-pointer
-         text-black disabled:opacity-70 disabled:cursor-not-allowed"
+            className="px-4 py-2 rounded bg-[#5eeccc] hover:bg-[#1be415] tracking-[.1em] cursor-pointer
+         text-black font-bold disabled:opacity-70 disabled:cursor-not-allowed"
           >
-            {btnLabel}
+            Send
+            {/* {btnLabel} */}
           </button>
         </div>
       </div>

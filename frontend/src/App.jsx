@@ -1,48 +1,54 @@
 import { Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-
-import Home from "./pages/Home";
-import ArticleDetailPage from "./pages/ArticleDetailPage";
-import BlogPage from "./pages/BlogPage";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
-import Contact from "./auth/Contact";
+import Home from "./pages/Home";
+import Contact from "./layouts/Contact";
+import BlogPage from "./pages/BlogPage";
 import ProfilePage from "./pages/ProfilePage";
-import AdminLayout from "./admin/AdminLayout";
-
-import Admin from "./admin/screens/Admin";
-import Comments from "./admin/screens/Comments";
-import ManagePosts from "./admin/screens/ManagePosts";
-import EditPost from "./admin/screens/EditPost";
-import Users from "./admin/screens/Users";
-import Categories from "./admin/screens/Categories";
-import EditCategories from "./admin/screens/EditCategories";
+import ArticleDetailPage from "./pages/ArticleDetailPage";
+import DashLayout from "./admin/DashLayout";
+import Dashboard from "./admin/dashboard";
+import DashPosts from "./admin/DashPosts";
+import EditPost from "./admin/EditPost";
+import DashUsers from "./admin/DashUsers";
+import DashComments from "./admin/DashComments";
+import DashCategories from "./admin/DashCategories";
+import DashEditCategories from "./admin/DashEditCategories";
+import DashAnalytics from "./admin/DashAnalytics";
+import DashSettings from "./admin/DashSettings";
 
 function App() {
 
   return (
     <div className="App">
-     <Routes>
-          <Route index path="/" element={<Home />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/blog/:slug" element={<ArticleDetailPage />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/dashboard" element={<AdminLayout />}>
-              <Route index element={<Admin />} />
-              <Route path="comments" element={<Comments />} />
-              <Route path="users/manage" element={<Users />} />
-              <Route path="posts/manage" element={<ManagePosts />} />
-              <Route path="posts/manage/edit/:slug" element={<EditPost />} />
-              <Route path="categories/manage" element={<Categories />} />
-              <Route path="categories/manage/edit/:slug" element={<EditCategories />} />
-            </Route>
-   
-     </Routes>
-     <Toaster />
+    <Routes>
+       <Route index path="/" element={<Home />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/blog" element={<BlogPage />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/blog/:slug" element={<ArticleDetailPage />} />
+
+      {/* Dashboard Routes - Key Fix Here */}
+      <Route path="/dashboard" element={<DashLayout />}>
+      <Route index element={<Dashboard />} />
+        <Route path="posts">
+          <Route index element={<DashPosts />} />
+          <Route path="edit/:slug" element={<EditPost />} /> {/* Fixed this line */}
+        </Route>
+        <Route path="users" element={<DashUsers />} />
+        <Route path="comments" element={<DashComments />} />
+        <Route path="analytics" element={<DashAnalytics />} />
+        <Route path="settings" element={<DashSettings />} />
+        <Route path="categories" element={<DashCategories />} />
+        <Route path="categories/edit/:slug" element={<DashEditCategories />} />
+      </Route>
+    </Routes>
+    <Toaster />
   </div>
   )
 }
+
 export default App

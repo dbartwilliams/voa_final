@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
-import MainLayout from "../components/MainLayout.jsx";
+import MainLayout from "../layouts/MainLayout.jsx";
 import { signup } from "../services/index/users.js";
 import { userActions } from "../store/reducers/userReducers.js";
 

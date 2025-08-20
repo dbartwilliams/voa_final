@@ -1,18 +1,15 @@
 import React from 'react'
-import Articles from "./Articles";
-
-import MainLayout from "../components/MainLayout";
-import CTA from "./CTA";
-import Hero from "./Hero";
+import MainLayout from "../layouts/MainLayout";
+import Hero from "../layouts/Hero";
+import Articles from "../pages/Articles";
 
 const Home = () => {
   return (
     <MainLayout>
-    <Hero />
-    <Articles />
-    <CTA />
+         <Hero />
+         <Articles />
   </MainLayout>
   )
 }
 
-export default Home;
+export default Home
